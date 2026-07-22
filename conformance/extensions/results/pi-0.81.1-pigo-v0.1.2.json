@@ -1,0 +1,4642 @@
+{
+  "schemaVersion": 1,
+  "kind": "pigo-extension-compatibility-report",
+  "sourceAsOf": "2026-07-22T04:36:15.339Z",
+  "methodology": {
+    "population": {
+      "capturedAt": "2026-07-22",
+      "count": 44,
+      "selection": {
+        "source": "https://pi.dev/packages?sort=downloads",
+        "rule": "Top 44 package entries with a non-empty pi.extensions array, ordered by displayed monthly npm downloads",
+        "caveat": "npm downloads measure registry traffic, not unique Pi users; malformed string-valued pi.extensions manifests are not loadable by upstream and are excluded"
+      }
+    },
+    "loadAndRegistration": {
+      "warmups": 2,
+      "samples": 11,
+      "timeoutMs": 30000,
+      "interleaved": true,
+      "network": "runner refuses non-isolated network namespaces",
+      "performance": "startup and global-baseline-subtracted load; observer RPC timing is not package-specific work",
+      "entrypoints": "manifest-declared directories are expanded by this harness, so runtime discovery parity is out of scope",
+      "isolation": "the documented container protects the host, but packages share writable container tmpfs state"
+    },
+    "workflowAudit": {
+      "auditedAt": "2026-07-22",
+      "method": "Static, line-grounded audit of each pinned corpus package after the current Pigo runtime shims. Each declared extension entrypoint and the code behind its primary workflow were inspected; current load/registration artifacts were used only to identify reached paths.",
+      "caveat": "These verdicts do not claim workflow execution. likely_compatible means no remaining Pigo-specific blocker was found statically and still requires the stated smoke; partial means a useful subset appears viable; main_feature_blocked means the package loads but its defining workflow cannot run; load_blocked means at least one declared entrypoint cannot load."
+    },
+    "smoke": {
+      "claimScope": "Read-only slash-command handler smoke only; this does not prove tools, renderers, providers, event hooks, external services, or model-driven workflows.",
+      "warmups": 1,
+      "samples": 5,
+      "timeoutMs": 30000,
+      "settleMs": 100,
+      "safety": {
+        "networkNamespaceGuard": {
+          "isolated": true,
+          "method": "os.networkInterfaces",
+          "external": []
+        },
+        "allowNetworkOverrideUsed": false,
+        "credentialsInherited": false,
+        "dummyAPIKey": true,
+        "proxySink": "127.0.0.1:9",
+        "modelActivityFailsAttempt": true,
+        "dialogRequests": "cancelled"
+      }
+    },
+    "interpretation": [
+      "Load compatibility proves stable extension evaluation; load/register additionally proves stable API registration. Neither proves the package's defining workflow.",
+      "Workflow tiers are static, line-grounded judgments. Only entries named by a workflow smoke case have executed workflow evidence.",
+      "Timing ratios are decision-grade only when quality is ok; noisy or unavailable ratios must not support a speed claim."
+    ]
+  },
+  "provenance": {
+    "validation": {
+      "complete": true,
+      "corpusEntries": 44,
+      "matrixEntries": 44,
+      "workflowAuditEntries": 44,
+      "commandSmokeCases": 7,
+      "workflowSmokeCases": 1,
+      "corpusIdentityMatchedAcrossInputs": true,
+      "smokeEmbeddedSourceHashesMatched": true,
+      "matrixHarnessBinding": "raw matrix hashes match the current harness, corpus, observer, and package lock"
+    },
+    "sourceTimestamps": {
+      "matrix": "2026-07-22T04:14:01.246Z",
+      "smoke": "2026-07-22T04:36:15.339Z",
+      "workflowAudit": "2026-07-22"
+    },
+    "runtimes": {
+      "node": "v24.18.0",
+      "pi": {
+        "version": "0.81.1",
+        "smokeBinarySHA256": "af302f231437eaf6f37691bce4b34234fcb626bcb5eb3910d4fc3f6519bf78ca"
+      },
+      "pigo": {
+        "version": "pigo 0.1.2 (upstream pi 0.81.1 @ 20be4b18)",
+        "smokeBinarySHA256": "a616d8486ce6047976b7688d9b641b5ff51d9ef781351b6f8433a340faaa375e"
+      },
+      "packageLockSHA256": "05bdb25ad57e4fba4f15f4c9a8305663e592e6954f0a79e930866c3a827e2b6c"
+    },
+    "sha256": {
+      "rawInputs": {
+        "matrix": {
+          "sha256": "c2b9226b83c6bea78817e64cea2563826e7daf6e145bbc4e6a6c6f5e493b554f",
+          "bytes": 2585095
+        },
+        "smoke": {
+          "sha256": "fe5336aa077801dbaa574acd0dc29c10785d729b2cb00eb9677184f4c5c8c946",
+          "bytes": 938604
+        },
+        "corpus": {
+          "sha256": "632bd7c8361fe33feec4155035eed879349b57c399684beb0a118f8ef99e8c33",
+          "bytes": 14089
+        },
+        "workflowAudit": {
+          "sha256": "28502fdfa428703a993db85e56456923db74a481efe1d9dd5f9a19dc0215b51e",
+          "bytes": 29929
+        }
+      },
+      "harnessSources": {
+        "matrix": {
+          "sha256": "704b9e9e6842d0e55cac21da493b112b1345a070bcf165f1afa8defba5d1f458",
+          "bytes": 31763
+        },
+        "observer": {
+          "sha256": "f7a686a0ddfe60f015a310c94b748243568ec7667875607ed4965d3f6f5b62b3",
+          "bytes": 1595
+        },
+        "prepare": {
+          "sha256": "04554856c6e54e4da63c757a131ba40955e875a6a75beeaba2dabd4b52ce0c9a",
+          "bytes": 4682
+        },
+        "smoke": {
+          "sha256": "92623dcf16f5360d2cefe44ac39ee7aefd0078b88e99d872248964c18ff20042",
+          "bytes": 40212
+        },
+        "smokeCases": {
+          "sha256": "a424e2cfc745e9e9f2d1146ca6ec4dfe379619957dfb49d081706f7750146aa5",
+          "bytes": 3991
+        },
+        "packageManifest": {
+          "sha256": "d407d822cb23a7cce3b99bce00f5d6cb39ec50158352b4c37e4ad1d542f2a86d",
+          "bytes": 1775
+        },
+        "packageLock": {
+          "sha256": "05bdb25ad57e4fba4f15f4c9a8305663e592e6954f0a79e930866c3a827e2b6c",
+          "bytes": 536258
+        },
+        "report": {
+          "sha256": "930bf070017aa51633a17a0022915896ac79dedbb2b44f847fa79e4174b9d4cf",
+          "bytes": 36506
+        }
+      }
+    }
+  },
+  "summary": {
+    "loadAndRegistration": {
+      "valid": true,
+      "completeCorpus": true,
+      "counts": {
+        "load_register_pass": 20,
+        "load_only_pass": 4,
+        "flaky": 0,
+        "unsupported": 20,
+        "infra_error": 0
+      },
+      "reasons": {
+        "load_register_pass": 20,
+        "pigo_load_failure": 20,
+        "load_only_pass": 4
+      },
+      "allCorpus": {
+        "total": 44,
+        "tested": 44,
+        "loadRegisterPass": 20,
+        "loadOnlyPass": 4,
+        "loadCompatible": 24,
+        "loadCompatiblePercent": 54.5,
+        "loadRegisterPercent": 45.5
+      },
+      "parity": {
+        "scope": "all upstream-supported corpus packages",
+        "upstreamSupported": 44,
+        "loadRegisterPass": 20,
+        "loadOnlyPass": 4,
+        "loadCompatible": 24,
+        "loadCompatiblePercent": 54.5,
+        "loadRegisterPercent": 45.5
+      }
+    },
+    "workflowTiers": {
+      "likely_compatible": 13,
+      "load_blocked": 20,
+      "main_feature_blocked": 5,
+      "partial": 6
+    },
+    "smoke": {
+      "commandCaseCount": 7,
+      "commandPassCount": 6,
+      "allCommandsComparedPass": false,
+      "piCommandPassCount": 7,
+      "pigoCommandPassCount": 7,
+      "workflowCaseCount": 1,
+      "workflowPassCount": 1,
+      "allWorkflowsComparedPass": true,
+      "piWorkflowPassCount": 1,
+      "pigoWorkflowPassCount": 1,
+      "allComparedPass": false
+    },
+    "performance": {
+      "baseline": {
+        "pi": {
+          "startup": {
+            "n": 11,
+            "medianMs": 747.068,
+            "p90Ms": 760.643,
+            "madMs": 9.866,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.129,
+            "p90Ms": 1.368,
+            "madMs": 0.02,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "startup": {
+            "n": 11,
+            "medianMs": 288.411,
+            "p90Ms": 297.171,
+            "madMs": 7.13,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 3.605,
+            "p90Ms": 6.52,
+            "madMs": 0.581,
+            "noisy": true
+          }
+        }
+      },
+      "extensionStartup": {
+        "attempted": 44,
+        "measured": 24,
+        "comparable": 24,
+        "noisy": 0,
+        "unavailable": 20,
+        "notDecisionGrade": 20,
+        "pigoFaster": 24,
+        "equal": 0,
+        "piFaster": 0,
+        "medianPigoVsPiRatio": 0.42
+      },
+      "baselineSubtractedLoad": {
+        "attempted": 44,
+        "measured": 24,
+        "comparable": 23,
+        "noisy": 1,
+        "unavailable": 20,
+        "notDecisionGrade": 21,
+        "pigoFaster": 12,
+        "equal": 0,
+        "piFaster": 11,
+        "medianPigoVsPiRatio": 0.839
+      },
+      "commandHandlerSmoke": {
+        "attempted": 7,
+        "measured": 7,
+        "comparable": 1,
+        "noisy": 6,
+        "unavailable": 0,
+        "notDecisionGrade": 6,
+        "pigoFaster": 1,
+        "equal": 0,
+        "piFaster": 0,
+        "medianPigoVsPiRatio": 0.542
+      },
+      "workflowHandlerSmoke": {
+        "attempted": 1,
+        "measured": 1,
+        "comparable": 0,
+        "noisy": 1,
+        "unavailable": 0,
+        "notDecisionGrade": 1,
+        "pigoFaster": 0,
+        "equal": 0,
+        "piFaster": 0,
+        "medianPigoVsPiRatio": null
+      }
+    },
+    "blockerCategories": [
+      {
+        "category": "none",
+        "count": 6,
+        "verdicts": {
+          "likely_compatible": 6
+        },
+        "extensions": [
+          {
+            "rank": 1,
+            "package": "@vigolium/piolium"
+          },
+          {
+            "rank": 12,
+            "package": "pi-simplify"
+          },
+          {
+            "rank": 19,
+            "package": "@hypabolic/pi-hypa"
+          },
+          {
+            "rank": 20,
+            "package": "@narumitw/pi-goal"
+          },
+          {
+            "rank": 31,
+            "package": "pi-prompt-template-model"
+          },
+          {
+            "rank": 44,
+            "package": "cc-safety-net"
+          }
+        ]
+      },
+      {
+        "category": "external_credentials_prerequisite",
+        "count": 3,
+        "verdicts": {
+          "likely_compatible": 3
+        },
+        "extensions": [
+          {
+            "rank": 26,
+            "package": "pi-deepseek-search"
+          },
+          {
+            "rank": 30,
+            "package": "@alexanderfortin/pi-deepseek-usage"
+          },
+          {
+            "rank": 34,
+            "package": "@pi-stef/atlassian"
+          }
+        ]
+      },
+      {
+        "category": "external_service_prerequisite",
+        "count": 3,
+        "verdicts": {
+          "likely_compatible": 3
+        },
+        "extensions": [
+          {
+            "rank": 7,
+            "package": "@remnic/plugin-pi"
+          },
+          {
+            "rank": 16,
+            "package": "@raindrop-ai/pi-agent"
+          },
+          {
+            "rank": 24,
+            "package": "@ollama/pi-web-search"
+          }
+        ]
+      },
+      {
+        "category": "native_sqlite_addon",
+        "count": 2,
+        "verdicts": {
+          "load_blocked": 2
+        },
+        "extensions": [
+          {
+            "rank": 5,
+            "package": "context-mode"
+          },
+          {
+            "rank": 17,
+            "package": "pi-hermes-memory"
+          }
+        ]
+      },
+      {
+        "category": "top_level_await_module_loading",
+        "count": 2,
+        "verdicts": {
+          "load_blocked": 2
+        },
+        "extensions": [
+          {
+            "rank": 15,
+            "package": "@juicesharp/rpiv-ask-user-question"
+          },
+          {
+            "rank": 18,
+            "package": "@juicesharp/rpiv-todo"
+          }
+        ]
+      },
+      {
+        "category": "bun_sqlite_and_sdk_packaging",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 39,
+            "package": "pi-cursor-sdk"
+          }
+        ]
+      },
+      {
+        "category": "child_stdin_and_tool_factory",
+        "count": 1,
+        "verdicts": {
+          "partial": 1
+        },
+        "extensions": [
+          {
+            "rank": 25,
+            "package": "pi-readseek"
+          }
+        ]
+      },
+      {
+        "category": "cjs_resolution_private_runner_workers_and_sockets",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 29,
+            "package": "pi-fabric"
+          }
+        ]
+      },
+      {
+        "category": "detached_daemon_lifecycle",
+        "count": 1,
+        "verdicts": {
+          "partial": 1
+        },
+        "extensions": [
+          {
+            "rank": 42,
+            "package": "gentle-engram"
+          }
+        ]
+      },
+      {
+        "category": "eager_optional_dependency_resolution",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 9,
+            "package": "@plannotator/pi-extension"
+          }
+        ]
+      },
+      {
+        "category": "external_executable_prerequisite",
+        "count": 1,
+        "verdicts": {
+          "likely_compatible": 1
+        },
+        "extensions": [
+          {
+            "rank": 23,
+            "package": "pi-agent-browser-native"
+          }
+        ]
+      },
+      {
+        "category": "isolated_vm_and_private_sdk",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 10,
+            "package": "@quintinshaw/pi-dynamic-workflows"
+          }
+        ]
+      },
+      {
+        "category": "lazy_native_ffi_backend",
+        "count": 1,
+        "verdicts": {
+          "main_feature_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 13,
+            "package": "@ff-labs/pi-fff"
+          }
+        ]
+      },
+      {
+        "category": "long_lived_bidirectional_child_stdio",
+        "count": 1,
+        "verdicts": {
+          "main_feature_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 37,
+            "package": "@narumitw/pi-lsp"
+          }
+        ]
+      },
+      {
+        "category": "mcp_streams_and_tool_definition_factories",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 36,
+            "package": "pi-lean-ctx"
+          }
+        ]
+      },
+      {
+        "category": "multiple_native_vector_ml_and_image_addons",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 41,
+            "package": "pi-vault-mind"
+          }
+        ]
+      },
+      {
+        "category": "native_ast_grep_addon",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 8,
+            "package": "pi-lens"
+          }
+        ]
+      },
+      {
+        "category": "native_codebase_index_addon",
+        "count": 1,
+        "verdicts": {
+          "main_feature_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 33,
+            "package": "opencode-codebase-index"
+          }
+        ]
+      },
+      {
+        "category": "native_tree_sitter_addons",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 38,
+            "package": "pi-shazam"
+          }
+        ]
+      },
+      {
+        "category": "node_stream_and_stdio_transport",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 2,
+            "package": "pi-mcp-adapter"
+          }
+        ]
+      },
+      {
+        "category": "optional_crypto_cookie_import",
+        "count": 1,
+        "verdicts": {
+          "partial": 1
+        },
+        "extensions": [
+          {
+            "rank": 3,
+            "package": "pi-web-access"
+          }
+        ]
+      },
+      {
+        "category": "package_resolution_and_tool_factories",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 22,
+            "package": "gentle-pi"
+          }
+        ]
+      },
+      {
+        "category": "private_coding_agent_and_tui_sdk",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 6,
+            "package": "@tintinweb/pi-subagents"
+          }
+        ]
+      },
+      {
+        "category": "private_sdk_tui_and_long_lived_stdio",
+        "count": 1,
+        "verdicts": {
+          "partial": 1
+        },
+        "extensions": [
+          {
+            "rank": 4,
+            "package": "pi-subagents"
+          }
+        ]
+      },
+      {
+        "category": "private_settings_and_credential_sdk",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 40,
+            "package": "pi-llama-cpp"
+          }
+        ]
+      },
+      {
+        "category": "real_socket_server_and_stream_decoding",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 28,
+            "package": "pi-landstrip"
+          }
+        ]
+      },
+      {
+        "category": "real_unix_and_tcp_sockets",
+        "count": 1,
+        "verdicts": {
+          "main_feature_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 32,
+            "package": "pi-intercom"
+          }
+        ]
+      },
+      {
+        "category": "session_listing_and_rich_tui",
+        "count": 1,
+        "verdicts": {
+          "main_feature_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 21,
+            "package": "@ayulab/pi-rewind"
+          }
+        ]
+      },
+      {
+        "category": "settings_tui_only",
+        "count": 1,
+        "verdicts": {
+          "partial": 1
+        },
+        "extensions": [
+          {
+            "rank": 11,
+            "package": "@gotgenes/pi-permission-system"
+          }
+        ]
+      },
+      {
+        "category": "streams_networking_and_private_sdk",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 14,
+            "package": "@mjasnikovs/pi-task"
+          }
+        ]
+      },
+      {
+        "category": "top_level_await_workers_and_process_ipc",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 27,
+            "package": "pi-crew"
+          }
+        ]
+      },
+      {
+        "category": "unproven_web_media_stream_and_crypto_apis",
+        "count": 1,
+        "verdicts": {
+          "partial": 1
+        },
+        "extensions": [
+          {
+            "rank": 35,
+            "package": "@braintrust/pi-extension"
+          }
+        ]
+      },
+      {
+        "category": "wasm_asset_urls_private_tool_factory_and_tui",
+        "count": 1,
+        "verdicts": {
+          "load_blocked": 1
+        },
+        "extensions": [
+          {
+            "rank": 43,
+            "package": "pi-hashline-edit-pro"
+          }
+        ]
+      }
+    ]
+  },
+  "extensions": [
+    {
+      "rank": 1,
+      "package": "@vigolium/piolium",
+      "version": "0.0.13",
+      "downloads": {
+        "monthly": 281805,
+        "weekly": 31555
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "likely_compatible",
+        "blockerCategory": "none",
+        "rootCause": "The inspected workflows use FileHandle, streaming TextDecoder, AbortSignal reasons, finite child processes, createAgentSession, and createWriteStream, all covered by current Pigo shims; no native addon, socket, worker, WASM, or DOM dependency was found.",
+        "remediation": "None statically.",
+        "verificationNeeded": "Run real knowledge-base, web-tool, scheduler, and child-session smokes before claiming proven workflow compatibility.",
+        "evidence": [
+          "extensions/piolium/knowledge-base-input.ts:634-668",
+          "extensions/piolium/tools/web-tools.ts:44-76",
+          "extensions/piolium/scheduler.ts:187-205"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [
+          "piolium-help",
+          "piolium-status-empty"
+        ],
+        "workflowCases": [
+          "piolium-knowledge-base-stage"
+        ]
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1682.163,
+            "p90Ms": 1732.615,
+            "madMs": 20.09,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.169,
+            "p90Ms": 1.221,
+            "madMs": 0.027,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 464.786,
+            "p90Ms": 479.607,
+            "madMs": 9.033,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 3.222,
+            "p90Ms": 4.022,
+            "madMs": 0.067,
+            "noisy": false
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.276,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 935.095,
+            "pigoMs": 176.375,
+            "ratio": 0.189,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": 2.756,
+            "quality": "ok"
+          }
+        }
+      }
+    },
+    {
+      "rank": 2,
+      "package": "pi-mcp-adapter",
+      "version": "2.11.0",
+      "downloads": {
+        "monthly": 138045,
+        "weekly": 44449
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "node_stream_and_stdio_transport",
+        "rootCause": "The MCP stdio client imports and constructs PassThrough streams, so a name-only stream stub would load falsely without providing the required duplex transport.",
+        "remediation": "Implement stream-capable child stdio and MCP transport semantics, or provide an intentional native Go MCP adapter.",
+        "verificationNeeded": "Load the extension and connect it to a real stdio MCP server.",
+        "evidence": [
+          "@modelcontextprotocol/sdk/dist/esm/client/stdio.js:3",
+          "@modelcontextprotocol/sdk/dist/esm/client/stdio.js:54"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1743.661,
+            "p90Ms": 1760.507,
+            "madMs": 16.846,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.23,
+            "p90Ms": 1.465,
+            "madMs": 0.037,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 3,
+      "package": "pi-web-access",
+      "version": "0.13.0",
+      "downloads": {
+        "monthly": 132583,
+        "weekly": 28522
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "partial",
+        "blockerCategory": "optional_crypto_cookie_import",
+        "rootCause": "Search, fetch, extraction, and SSRF IP checks are statically viable, but optional Chrome-cookie import requires PBKDF2 and AES decipher APIs that Pigo does not provide.",
+        "remediation": "Add standards-faithful PBKDF2 and AES decipher support only if Chrome-cookie import is prioritized.",
+        "verificationNeeded": "Smoke ordinary search/fetch/extraction separately from authenticated Chrome-cookie import.",
+        "evidence": [
+          "extract.ts:1-2",
+          "ssrf-protection.ts:51",
+          "chrome-cookies.ts:95-153"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1636.166,
+            "p90Ms": 1670.093,
+            "madMs": 33.927,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.443,
+            "p90Ms": 1.711,
+            "madMs": 0.151,
+            "noisy": true
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1359.413,
+            "p90Ms": 1394.364,
+            "madMs": 26.815,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 5.119,
+            "p90Ms": 5.706,
+            "madMs": 0.587,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.831,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 889.098,
+            "pigoMs": 1071.002,
+            "ratio": 1.205,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 4,
+      "package": "pi-subagents",
+      "version": "0.35.1",
+      "downloads": {
+        "monthly": 117670,
+        "weekly": 28167
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "partial",
+        "blockerCategory": "private_sdk_tui_and_long_lived_stdio",
+        "rootCause": "Basic finite foreground and background subagents appear viable, while rich UI, watchdog tool factories, and LSP diagnostics depend on missing keyText, Markdown, createReadOnlyTools, and writable long-lived child stdio.",
+        "remediation": "Validate the core subagent path first; treat rich TUI, tool factories, and interactive process pipes as a separate compatibility project.",
+        "verificationNeeded": "Classify basic foreground/background execution independently from watchdog and rich-UI workflows.",
+        "evidence": [
+          "src/runs/foreground/execution.ts:313",
+          "src/extension/index.ts:341",
+          "src/tui/render.ts:1571",
+          "src/watchdog/lsp-diagnostics.ts:318-441"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [
+          "subagents-doctor"
+        ],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 3911.974,
+            "p90Ms": 4025.091,
+            "madMs": 26.647,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 4.06,
+            "p90Ms": 4.395,
+            "madMs": 0.308,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 889.446,
+            "p90Ms": 914.409,
+            "madMs": 20.769,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 18.208,
+            "p90Ms": 27.647,
+            "madMs": 4.91,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.227,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 3164.906,
+            "pigoMs": 601.035,
+            "ratio": 0.19,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 5,
+      "package": "context-mode",
+      "version": "1.0.169",
+      "downloads": {
+        "monthly": 106249,
+        "weekly": 14375
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "native_sqlite_addon",
+        "rootCause": "The mandatory persistence backend loads better-sqlite3 after createRequire setup, so the extension cannot initialize in Pigo's pure-Go runtime.",
+        "remediation": "Use an extension-supported non-native backend or design an explicit Go or service-backed SQLite integration; do not stub better-sqlite3.",
+        "verificationNeeded": "Load the extension, migrate its database, and exercise persistence and FTS.",
+        "evidence": [
+          "build/db-base.js:223",
+          "build/db-base.js:289-294",
+          "package.json:107"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 765.68,
+            "p90Ms": 783.194,
+            "madMs": 2.517,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.178,
+            "p90Ms": 1.338,
+            "madMs": 0.056,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 6,
+      "package": "@tintinweb/pi-subagents",
+      "version": "0.14.2",
+      "downloads": {
+        "monthly": 40400,
+        "weekly": 11224
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "private_coding_agent_and_tui_sdk",
+        "rootCause": "Core initialization eagerly requires createCodingTools, createReadOnlyTools, SettingsManager, SettingsList, and Text rather than touching one optional symbol lazily.",
+        "remediation": "Implement the faithful tool-factory, settings, and TUI surfaces as an explicit compatibility project.",
+        "verificationNeeded": "Load the extension, launch an agent, and open its settings UI.",
+        "evidence": [
+          "src/agent-types.ts:8-21",
+          "src/agent-runner.ts:18",
+          "src/index.ts:16"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1550.453,
+            "p90Ms": 1557.24,
+            "madMs": 6.144,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.682,
+            "p90Ms": 1.84,
+            "madMs": 0.081,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 7,
+      "package": "@remnic/plugin-pi",
+      "version": "9.10.0",
+      "downloads": {
+        "monthly": 35739,
+        "weekly": 8764
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "likely_compatible",
+        "blockerCategory": "external_service_prerequisite",
+        "rootCause": "The inspected paths use ordinary fetch and command registration; the only expected prerequisite is the configured Remnic daemon and token.",
+        "remediation": "None in Pigo.",
+        "verificationNeeded": "Run the commands against a real authenticated Remnic daemon.",
+        "evidence": [
+          "dist/index.js:14",
+          "dist/index.js:398",
+          "dist/index.js:910"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 804.111,
+            "p90Ms": 818.488,
+            "madMs": 3.956,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.179,
+            "p90Ms": 1.189,
+            "madMs": 0.01,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 336.279,
+            "p90Ms": 353.141,
+            "madMs": 16.327,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 5.897,
+            "p90Ms": 12.559,
+            "madMs": 3.174,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.418,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 57.043,
+            "pigoMs": 47.868,
+            "ratio": 0.839,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 8,
+      "package": "pi-lens",
+      "version": "3.8.71",
+      "downloads": {
+        "monthly": 31382,
+        "weekly": 8752
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "native_ast_grep_addon",
+        "rootCause": "The mandatory analysis backend resolves an @ast-grep N-API .node binary, which Sobek cannot execute.",
+        "remediation": "Use an upstream executable, WASM, or pure-JavaScript backend, or undertake native-addon support as a separate design project.",
+        "verificationNeeded": "Load the extension and execute lens map and analysis workflows.",
+        "evidence": [
+          "package.json:85-86",
+          "dist/index.js:45280-45283"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 930.505,
+            "p90Ms": 940.717,
+            "madMs": 8.622,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 2.626,
+            "p90Ms": 2.715,
+            "madMs": 0.089,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 9,
+      "package": "@plannotator/pi-extension",
+      "version": "0.24.2",
+      "downloads": {
+        "monthly": 29485,
+        "weekly": 7540
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "eager_optional_dependency_resolution",
+        "rootCause": "Pigo's CommonJS bundling resolves the deferred @anthropic-ai/claude-agent-sdk dynamic import at compile time even when that provider path is not selected.",
+        "remediation": "Correct dynamic-import externalization and package resolution, then install and test the real SDK rather than faking its exports.",
+        "verificationNeeded": "Load the extension and run its AI-provider workflow.",
+        "evidence": [
+          "generated/ai/providers/claude-agent-sdk.ts:253",
+          "index.ts:429",
+          "index.ts:784"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1103.483,
+            "p90Ms": 1119.495,
+            "madMs": 6.081,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.349,
+            "p90Ms": 1.445,
+            "madMs": 0.096,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 10,
+      "package": "@quintinshaw/pi-dynamic-workflows",
+      "version": "3.3.0",
+      "downloads": {
+        "monthly": 28294,
+        "weekly": 9007
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "isolated_vm_and_private_sdk",
+        "rootCause": "A real vm context and Script are central to workflow execution, and agent setup also requires missing createCodingTools and SettingsManager surfaces.",
+        "remediation": "Design a secure sandbox and implement the faithful coding-agent facade as explicit projects; do not emulate isolation with an unsafe stub.",
+        "verificationNeeded": "Load and execute a saved workflow with isolation assertions.",
+        "evidence": [
+          "src/workflow.ts:1-3",
+          "src/workflow.ts:1251-1261",
+          "src/agent.ts:528-758"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 2045.104,
+            "p90Ms": 2081.877,
+            "madMs": 26.397,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.351,
+            "p90Ms": 1.808,
+            "madMs": 0.066,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 11,
+      "package": "@gotgenes/pi-permission-system",
+      "version": "20.10.0",
+      "downloads": {
+        "monthly": 26894,
+        "weekly": 7856
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "partial",
+        "blockerCategory": "settings_tui_only",
+        "rootCause": "The permission gate deliberately falls back to conservative whole-string parsing when tree-sitter WASM is unavailable, but the interactive config modal requires missing settings TUI components.",
+        "remediation": "Validate security decisions now; implement the settings components only if modal parity is required.",
+        "verificationNeeded": "Test allow, ask, and deny decisions including the parser fallback, then classify the config modal separately.",
+        "evidence": [
+          "src/access-intent/bash/parser.ts:29-68",
+          "src/config-modal.ts:4-6",
+          "src/config-modal.ts:192-195"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1691.493,
+            "p90Ms": 1727.309,
+            "madMs": 6.956,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.935,
+            "p90Ms": 2.043,
+            "madMs": 0.052,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 581.482,
+            "p90Ms": 610.346,
+            "madMs": 20.523,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 3.004,
+            "p90Ms": 3.498,
+            "madMs": 0.365,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.344,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 944.425,
+            "pigoMs": 293.071,
+            "ratio": 0.31,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 12,
+      "package": "pi-simplify",
+      "version": "0.2.3",
+      "downloads": {
+        "monthly": 24721,
+        "weekly": 7037
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "likely_compatible",
+        "blockerCategory": "none",
+        "rootCause": "The extension is a narrow command-only surface and the inspected entrypoint has no native, stream, socket, WASM, or private-SDK dependency.",
+        "remediation": "None statically.",
+        "verificationNeeded": "Invoke the simplify command in a real session.",
+        "evidence": [
+          "dist/index.js:3"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 749.795,
+            "p90Ms": 764.776,
+            "madMs": 11.539,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.173,
+            "p90Ms": 1.333,
+            "madMs": 0.041,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 319.717,
+            "p90Ms": 331.834,
+            "madMs": 12.343,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 2.924,
+            "p90Ms": 3.741,
+            "madMs": 0.423,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.426,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 2.727,
+            "pigoMs": 31.306,
+            "ratio": 11.48,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 13,
+      "package": "@ff-labs/pi-fff",
+      "version": "0.10.1",
+      "downloads": {
+        "monthly": 22067,
+        "weekly": 6965
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "main_feature_blocked",
+        "blockerCategory": "lazy_native_ffi_backend",
+        "rootCause": "Registration succeeds, but the main finder tools dynamically load @ff-labs/fff-node and invoke FileFinder, so useful work reaches a native backend Sobek cannot execute.",
+        "remediation": "Provide an upstream-supported executable or service backend, or undertake native-addon bridging separately.",
+        "verificationNeeded": "Execute finder, read, and edit tools rather than checking registration alone.",
+        "evidence": [
+          "src/sdk.ts:22-28",
+          "src/index.ts:366-367"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [
+          "fff-health"
+        ],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 977.686,
+            "p90Ms": 983.316,
+            "madMs": 15.297,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.464,
+            "p90Ms": 1.568,
+            "madMs": 0.081,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 332.423,
+            "p90Ms": 353.097,
+            "madMs": 12.778,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 3.529,
+            "p90Ms": 7.651,
+            "madMs": 0.969,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.34,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 230.618,
+            "pigoMs": 44.012,
+            "ratio": 0.191,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 14,
+      "package": "@mjasnikovs/pi-task",
+      "version": "0.18.49",
+      "downloads": {
+        "monthly": 21223,
+        "weekly": 6637
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "streams_networking_and_private_sdk",
+        "rootCause": "The initial prototype failure comes from ws extending an absent stream class, while task networking and configuration also require net, TLS, SettingsManager, DefaultPackageManager, and SettingsList.",
+        "remediation": "Treat real streams and sockets plus the private settings/TUI surface as a broad compatibility project.",
+        "verificationNeeded": "Load all entrypoints and test websocket, task orchestration, and config UI paths.",
+        "evidence": [
+          "ws/lib/receiver.js:1-24",
+          "ws/lib/websocket.js:3-46",
+          "dist/config/extension-list.js:4-46"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 985.999,
+            "p90Ms": 994.217,
+            "madMs": 6.431,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.585,
+            "p90Ms": 1.806,
+            "madMs": 0.061,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 15,
+      "package": "@juicesharp/rpiv-ask-user-question",
+      "version": "2.0.0",
+      "downloads": {
+        "monthly": 18955,
+        "weekly": 4040
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "top_level_await_module_loading",
+        "rootCause": "The declared entrypoint uses top-level await, which esbuild cannot emit into Pigo's synchronous CommonJS execution model.",
+        "remediation": "Design true ESM and asynchronous module execution or a proven semantics-preserving transform; changing only the JavaScript target is insufficient.",
+        "verificationNeeded": "Load the extension and open the question UI after module support exists.",
+        "evidence": [
+          "index.ts:35",
+          "state/i18n-bridge.ts:41"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1016.925,
+            "p90Ms": 1025.402,
+            "madMs": 12.166,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.345,
+            "p90Ms": 1.56,
+            "madMs": 0.028,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 16,
+      "package": "@raindrop-ai/pi-agent",
+      "version": "0.1.0",
+      "downloads": {
+        "monthly": 17023,
+        "weekly": 6072
+      },
+      "load": {
+        "status": "load_only_pass",
+        "reason": "load_only_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "likely_compatible",
+        "blockerCategory": "external_service_prerequisite",
+        "rootCause": "This is intentionally an event-only extension with no commands or tools and it deliberately disables itself without a key or local daemon; no unsupported static API was found.",
+        "remediation": "None in Pigo.",
+        "verificationNeeded": "Smoke credentialed event delivery and flush behavior, and verify deliberate no-key disablement.",
+        "evidence": [
+          "dist/extension.js:45-58",
+          "dist/extension.js:183",
+          "dist/extension.js:459-464"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 743.508,
+            "p90Ms": 758.573,
+            "madMs": 8.667,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.108,
+            "p90Ms": 1.206,
+            "madMs": 0.026,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 326.616,
+            "p90Ms": 359.911,
+            "madMs": 24.055,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 3.322,
+            "p90Ms": 8.86,
+            "madMs": 0.984,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.439,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": -3.56,
+            "pigoMs": 38.205,
+            "ratio": null,
+            "quality": "below_resolution"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 17,
+      "package": "pi-hermes-memory",
+      "version": "0.8.2",
+      "downloads": {
+        "monthly": 16573,
+        "weekly": 4432
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "native_sqlite_addon",
+        "rootCause": "Memory persistence initializes a mandatory better-sqlite3 backend at load; the alternative in the package targets Bun rather than Sobek.",
+        "remediation": "Adopt an extension-supported non-native backend or design an explicit Go or service-backed store.",
+        "verificationNeeded": "Load, migrate the database, and store and query memory.",
+        "evidence": [
+          "src/index.ts:112",
+          "src/store/sqlite-native.ts:169-176",
+          "src/store/db.ts:93"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 2115.337,
+            "p90Ms": 2143.863,
+            "madMs": 12.208,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.553,
+            "p90Ms": 1.575,
+            "madMs": 0.022,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 18,
+      "package": "@juicesharp/rpiv-todo",
+      "version": "2.0.0",
+      "downloads": {
+        "monthly": 16474,
+        "weekly": 3474
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "top_level_await_module_loading",
+        "rootCause": "The declared entrypoint and i18n bridge use top-level await, which Pigo's synchronous CommonJS execution model cannot compile.",
+        "remediation": "Design true ESM and asynchronous module execution or a semantics-preserving transform, then reassess UI compatibility.",
+        "verificationNeeded": "Load the extension and execute its todo UI and workflow.",
+        "evidence": [
+          "index.ts:50",
+          "state/i18n-bridge.ts:40"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1112.19,
+            "p90Ms": 1125.006,
+            "madMs": 12.738,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 2.12,
+            "p90Ms": 2.63,
+            "madMs": 0.073,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 19,
+      "package": "@hypabolic/pi-hypa",
+      "version": "0.1.11",
+      "downloads": {
+        "monthly": 16396,
+        "weekly": 4570
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "likely_compatible",
+        "blockerCategory": "none",
+        "rootCause": "The previously missing isToolCallEventType helper is now present, and the inspected registration and tool paths expose no remaining native, socket, WASM, or private unresolved surface.",
+        "remediation": "None statically.",
+        "verificationNeeded": "Smoke tool-call interception and each registered Hypa tool.",
+        "evidence": [
+          "extensions/index.ts:1",
+          "extensions/index.ts:46-47",
+          "extensions/tools.ts:396"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [
+          "hypa-diagnostics"
+        ],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 966.501,
+            "p90Ms": 981.05,
+            "madMs": 12.262,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.307,
+            "p90Ms": 1.588,
+            "madMs": 0.019,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 319.721,
+            "p90Ms": 343.308,
+            "madMs": 6.95,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 5.027,
+            "p90Ms": 11.371,
+            "madMs": 1.087,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.331,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 219.433,
+            "pigoMs": 31.31,
+            "ratio": 0.143,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 20,
+      "package": "@narumitw/pi-goal",
+      "version": "0.24.0",
+      "downloads": {
+        "monthly": 15934,
+        "weekly": 5163
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "likely_compatible",
+        "blockerCategory": "none",
+        "rootCause": "The previously missing isContextOverflow helper is now present, and no remaining unsupported API was found in goal, lifecycle, or compaction paths.",
+        "remediation": "None statically.",
+        "verificationNeeded": "Smoke goal completion and blocking plus compaction and session lifecycle.",
+        "evidence": [
+          "src/runtime.ts:3",
+          "src/runtime.ts:815",
+          "src/goal.ts:394-400",
+          "src/goal.ts:463-790"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [
+          "goal-status-empty"
+        ],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1174.928,
+            "p90Ms": 1197.929,
+            "madMs": 8.729,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.906,
+            "p90Ms": 2.36,
+            "madMs": 0.07,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 349.983,
+            "p90Ms": 359.039,
+            "madMs": 9.056,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 3.307,
+            "p90Ms": 3.898,
+            "madMs": 0.485,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.298,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 427.86,
+            "pigoMs": 61.572,
+            "ratio": 0.144,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 21,
+      "package": "@ayulab/pi-rewind",
+      "version": "0.4.6",
+      "downloads": {
+        "monthly": 15556,
+        "weekly": 1864
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "main_feature_blocked",
+        "blockerCategory": "session_listing_and_rich_tui",
+        "rootCause": "Commands register, but their checkpoint and rewind selectors construct Input, Text, and TruncatedText and call SessionManager.list or listAll, which Pigo does not expose.",
+        "remediation": "Implement faithful session-list APIs and the required TUI components as an explicit compatibility surface.",
+        "verificationNeeded": "Invoke checkpoint and rewind selectors over real sessions.",
+        "evidence": [
+          "index.js:6-7",
+          "index.js:487",
+          "index.js:849",
+          "index.js:1323-1324"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 769.785,
+            "p90Ms": 773.982,
+            "madMs": 4.198,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.096,
+            "p90Ms": 1.41,
+            "madMs": 0.027,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 363.001,
+            "p90Ms": 377.118,
+            "madMs": 8.232,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 2.895,
+            "p90Ms": 6.759,
+            "madMs": 0.536,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.472,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 22.717,
+            "pigoMs": 74.59,
+            "ratio": 3.283,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 22,
+      "package": "gentle-pi",
+      "version": "1.2.0",
+      "downloads": {
+        "monthly": 15065,
+        "weekly": 4331
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "package_resolution_and_tool_factories",
+        "rootCause": "Its two declared entrypoints fail independently: one dynamically loads @heyhuynhgiabuu/pi-pretty and the other eagerly requires the full native read, bash, edit, find, grep, ls, and write tool factories.",
+        "remediation": "Support executable package resolution and implement faithful native-tool factories.",
+        "verificationNeeded": "Load every manifest entrypoint and exercise all quiet tool replacements.",
+        "evidence": [
+          "extensions/pi-pretty.ts:10-14",
+          "extensions/quiet-tools.ts:3-10",
+          "extensions/quiet-tools.ts:22-29"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 2670.244,
+            "p90Ms": 2749.219,
+            "madMs": 17.662,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.375,
+            "p90Ms": 1.489,
+            "madMs": 0.044,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 23,
+      "package": "pi-agent-browser-native",
+      "version": "0.2.71",
+      "downloads": {
+        "monthly": 12576,
+        "weekly": 2711
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "likely_compatible",
+        "blockerCategory": "external_executable_prerequisite",
+        "rootCause": "The base tool delegates finite operations to a separate agent-browser executable on PATH, and those buffered-at-exit process calls fit current Pigo semantics.",
+        "remediation": "None for the base path.",
+        "verificationNeeded": "Install the matching agent-browser and smoke open, snapshot, and click; assess Electron or long-lived progress paths separately.",
+        "evidence": [
+          "dist/extensions/agent-browser/index.js:1-6",
+          "dist/extensions/agent-browser/lib/process.js:289",
+          "dist/extensions/agent-browser/index.js:682"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 804.583,
+            "p90Ms": 817.261,
+            "madMs": 7.483,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 2.886,
+            "p90Ms": 3.408,
+            "madMs": 0.539,
+            "noisy": true
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 534.42,
+            "p90Ms": 548.3,
+            "madMs": 11.279,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 11.888,
+            "p90Ms": 15.663,
+            "madMs": 3.283,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.664,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 57.515,
+            "pigoMs": 246.009,
+            "ratio": 4.277,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 24,
+      "package": "@ollama/pi-web-search",
+      "version": "0.0.5",
+      "downloads": {
+        "monthly": 12495,
+        "weekly": 2243
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "likely_compatible",
+        "blockerCategory": "external_service_prerequisite",
+        "rootCause": "Both tools use ordinary fetch and JSON against Ollama's local experimental search endpoints, with no unsupported Pigo API in the inspected paths.",
+        "remediation": "None in Pigo.",
+        "verificationNeeded": "Run both tools against a real Ollama endpoint that exposes the expected APIs.",
+        "evidence": [
+          "index.ts:21-22",
+          "index.ts:27-40",
+          "index.ts:81-92"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 765.211,
+            "p90Ms": 781.48,
+            "madMs": 5.363,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.22,
+            "p90Ms": 1.392,
+            "madMs": 0.032,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 317.693,
+            "p90Ms": 334.531,
+            "madMs": 8.134,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 2.921,
+            "p90Ms": 4.432,
+            "madMs": 0.387,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.415,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 18.143,
+            "pigoMs": 29.282,
+            "ratio": 1.614,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 25,
+      "package": "pi-readseek",
+      "version": "0.8.0",
+      "downloads": {
+        "monthly": 12409,
+        "weekly": 5683
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "partial",
+        "blockerCategory": "child_stdin_and_tool_factory",
+        "rootCause": "Finite read and view operations may consume buffered output, but edit, write, check, map, and identify write to child stdin, while grep requires a missing createGrepTool factory.",
+        "remediation": "Implement finite writable child stdin and the faithful grep factory; do not claim streaming subprocess parity from buffered execution.",
+        "verificationNeeded": "Test every registered tool, especially edit, write, check, map, identify, and grep.",
+        "evidence": [
+          "dist/index.js:1405-1517",
+          "dist/index.js:1806",
+          "dist/index.js:1883",
+          "dist/index.js:5228"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 819.806,
+            "p90Ms": 829.689,
+            "madMs": 3.546,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 2.071,
+            "p90Ms": 2.445,
+            "madMs": 0.02,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 430.921,
+            "p90Ms": 452.501,
+            "madMs": 21.58,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 9.022,
+            "p90Ms": 14.008,
+            "madMs": 1.445,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.526,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 72.738,
+            "pigoMs": 142.51,
+            "ratio": 1.959,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 26,
+      "package": "pi-deepseek-search",
+      "version": "1.0.15",
+      "downloads": {
+        "monthly": 12021,
+        "weekly": 3136
+      },
+      "load": {
+        "status": "load_only_pass",
+        "reason": "load_only_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "likely_compatible",
+        "blockerCategory": "external_credentials_prerequisite",
+        "rootCause": "Dynamic registration waits for credentials at session_start, while the search path uses AbortSignal timeout and any plus streaming TextDecoder, all now implemented in Pigo.",
+        "remediation": "None statically.",
+        "verificationNeeded": "With a DeepSeek key, verify session_start registration, streaming search, cancellation, and timeout.",
+        "evidence": [
+          "index.ts:59-62",
+          "index.ts:187-197"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 786.733,
+            "p90Ms": 795.444,
+            "madMs": 8.658,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.366,
+            "p90Ms": 1.463,
+            "madMs": 0.112,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 331.483,
+            "p90Ms": 341.994,
+            "madMs": 7.949,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 2.551,
+            "p90Ms": 3.763,
+            "madMs": 0.177,
+            "noisy": false
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.421,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 39.665,
+            "pigoMs": 43.072,
+            "ratio": 1.086,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": 1.867,
+            "quality": "ok"
+          }
+        }
+      }
+    },
+    {
+      "rank": 27,
+      "package": "pi-crew",
+      "version": "0.9.46",
+      "downloads": {
+        "monthly": 11909,
+        "weekly": 2493
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "top_level_await_workers_and_process_ipc",
+        "rootCause": "Top-level await blocks compilation first, and the defining team workflows then require worker_threads and long-lived bidirectional child-process stdio.",
+        "remediation": "Treat ESM/TLA, workers, and process IPC as separate runtime design projects.",
+        "verificationNeeded": "Load the extension and test foreground and background team execution plus persistent state writes.",
+        "evidence": [
+          "index.ts:71-79",
+          "src/state/worker-atomic-writer.ts:27-171",
+          "src/runtime/iteration-hooks.ts:164-235",
+          "src/runtime/child-pi.ts:383"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 4500.799,
+            "p90Ms": 4746.046,
+            "madMs": 61.96,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 5.116,
+            "p90Ms": 6.61,
+            "madMs": 0.289,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 28,
+      "package": "pi-landstrip",
+      "version": "0.17.31",
+      "downloads": {
+        "monthly": 11382,
+        "weekly": 4603
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "real_socket_server_and_stream_decoding",
+        "rootCause": "After the IP-only net shim, loading reaches node:string_decoder, and the main sandbox still requires net.createServer plus a connected socket pair.",
+        "remediation": "Implement a real socket and stream runtime or provide an intentional native Go sandbox integration; a StringDecoder stub alone would be false compatibility.",
+        "verificationNeeded": "Load the extension and enforce a real sandboxed command and network decision.",
+        "evidence": [
+          "index.ts:17-27",
+          "index.ts:1489-1510",
+          "index.ts:1515-1533"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1318.839,
+            "p90Ms": 1351.272,
+            "madMs": 19.027,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.933,
+            "p90Ms": 13.237,
+            "madMs": 0.083,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 29,
+      "package": "pi-fabric",
+      "version": "0.22.4",
+      "downloads": {
+        "monthly": 11375,
+        "weekly": 10597
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "cjs_resolution_private_runner_workers_and_sockets",
+        "rootCause": "Loading first fails relative UMD requires, while main workflows also need ExtensionRunner interception, worker_threads, and net transport.",
+        "remediation": "Fix executable relative CommonJS resolution only as part of the broader runner, worker, and socket compatibility project.",
+        "verificationNeeded": "Load the package and test tool interception, regex memory, and Herdr transport.",
+        "evidence": [
+          "jsonc-parser/lib/umd/main.js:17-20",
+          "dist/capture/interceptor.js:4-82",
+          "dist/memory/regex.js:1-3",
+          "dist/subagents/transports/herdr-transport.js:1"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1147.875,
+            "p90Ms": 1164.671,
+            "madMs": 7.455,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.295,
+            "p90Ms": 1.339,
+            "madMs": 0.03,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 30,
+      "package": "@alexanderfortin/pi-deepseek-usage",
+      "version": "0.3.12",
+      "downloads": {
+        "monthly": 11205,
+        "weekly": 1714
+      },
+      "load": {
+        "status": "load_only_pass",
+        "reason": "load_only_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "likely_compatible",
+        "blockerCategory": "external_credentials_prerequisite",
+        "rootCause": "This event-only extension uses modelRegistry credential lookup and ordinary fetch, with no commands, tools, or unsupported static API.",
+        "remediation": "None in Pigo.",
+        "verificationNeeded": "Select a DeepSeek model and verify footer refresh and error handling with real credentials.",
+        "evidence": [
+          "@alexanderfortin/pi-usage-lib/dist/extension.js:37-58",
+          "@alexanderfortin/pi-usage-lib/dist/api.js:29-58"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 814.917,
+            "p90Ms": 827.16,
+            "madMs": 10.798,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.923,
+            "p90Ms": 6.799,
+            "madMs": 0.072,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 372.735,
+            "p90Ms": 385.183,
+            "madMs": 9.185,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 2.739,
+            "p90Ms": 3.662,
+            "madMs": 0.439,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.457,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 67.849,
+            "pigoMs": 84.324,
+            "ratio": 1.243,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 31,
+      "package": "pi-prompt-template-model",
+      "version": "0.10.0",
+      "downloads": {
+        "monthly": 10543,
+        "weekly": 2736
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "likely_compatible",
+        "blockerCategory": "none",
+        "rootCause": "The command, lifecycle, and model hooks use supported filesystem and path surfaces, and no native, stream, socket, WASM, or private unresolved API was found.",
+        "remediation": "None statically.",
+        "verificationNeeded": "Invoke templates, model selection, and chained prompts.",
+        "evidence": [
+          "index.ts:152",
+          "index.ts:1646-1706"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1293.654,
+            "p90Ms": 1344.627,
+            "madMs": 15.985,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.32,
+            "p90Ms": 1.473,
+            "madMs": 0.069,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 384.683,
+            "p90Ms": 411.932,
+            "madMs": 15.217,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 2.844,
+            "p90Ms": 5.199,
+            "madMs": 0.326,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.297,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 546.586,
+            "pigoMs": 96.272,
+            "ratio": 0.176,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 32,
+      "package": "pi-intercom",
+      "version": "0.6.0",
+      "downloads": {
+        "monthly": 10341,
+        "weekly": 2087
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "main_feature_blocked",
+        "blockerCategory": "real_unix_and_tcp_sockets",
+        "rootCause": "Registration succeeds with Pigo's IP-only net helpers, but the defining broker calls net.createServer and net.connect, which the runtime does not implement.",
+        "remediation": "Implement real socket semantics or provide an intentional native Go intercom transport.",
+        "verificationNeeded": "Start a broker and exchange messages between two live sessions.",
+        "evidence": [
+          "broker/broker.ts:1",
+          "broker/broker.ts:111",
+          "broker/client.ts:152-158",
+          "broker/spawn.ts:215"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1195.636,
+            "p90Ms": 1245.614,
+            "madMs": 60.071,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 3.056,
+            "p90Ms": 11.365,
+            "madMs": 0.764,
+            "noisy": true
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 357.259,
+            "p90Ms": 364.075,
+            "madMs": 6.816,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 3.127,
+            "p90Ms": 4.556,
+            "madMs": 0.837,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.299,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 448.568,
+            "pigoMs": 68.848,
+            "ratio": 0.153,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 33,
+      "package": "opencode-codebase-index",
+      "version": "0.14.0",
+      "downloads": {
+        "monthly": 10061,
+        "weekly": 2278
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "main_feature_blocked",
+        "blockerCategory": "native_codebase_index_addon",
+        "rootCause": "Registration succeeds, but loading the platform .node binding falls back to a throwing mock, and every useful indexing operation reaches that unavailable native implementation.",
+        "remediation": "Use an upstream-supported pure, service, or Go backend, or undertake native-addon support separately.",
+        "verificationNeeded": "Build an index and execute parse, search, and reference tools.",
+        "evidence": [
+          "dist/pi-extension.js:3913-3947",
+          "dist/pi-extension.js:3949-4011",
+          "dist/pi-extension.js:9589"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 834.537,
+            "p90Ms": 844.61,
+            "madMs": 3.155,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.786,
+            "p90Ms": 1.986,
+            "madMs": 0.114,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 423.667,
+            "p90Ms": 443.02,
+            "madMs": 13.705,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 7.055,
+            "p90Ms": 8.035,
+            "madMs": 0.48,
+            "noisy": false
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.508,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 87.469,
+            "pigoMs": 135.256,
+            "ratio": 1.546,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": 3.95,
+            "quality": "ok"
+          }
+        }
+      }
+    },
+    {
+      "rank": 34,
+      "package": "@pi-stef/atlassian",
+      "version": "0.4.1",
+      "downloads": {
+        "monthly": 9894,
+        "weekly": 2722
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "likely_compatible",
+        "blockerCategory": "external_credentials_prerequisite",
+        "rootCause": "The inspected Jira and Confluence paths use supported authentication storage, fetch, text, and arrayBuffer surfaces; only real credentials and network access are expected.",
+        "remediation": "None in Pigo.",
+        "verificationNeeded": "Run credentialed Jira and Confluence read and write smokes.",
+        "evidence": [
+          "extensions/atlassian.ts:3-6",
+          "src/auth/AtlassianAuth.ts:25-69",
+          "src/http/AtlassianClient.ts:24-99"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1322.892,
+            "p90Ms": 1326.478,
+            "madMs": 16.725,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 3.723,
+            "p90Ms": 3.993,
+            "madMs": 0.195,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 555.135,
+            "p90Ms": 589.721,
+            "madMs": 16.965,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 27.226,
+            "p90Ms": 33.766,
+            "madMs": 3.896,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.42,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 575.824,
+            "pigoMs": 266.724,
+            "ratio": 0.463,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 35,
+      "package": "@braintrust/pi-extension",
+      "version": "0.10.0",
+      "downloads": {
+        "monthly": 9831,
+        "weekly": 1814
+      },
+      "load": {
+        "status": "load_only_pass",
+        "reason": "load_only_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "partial",
+        "blockerCategory": "unproven_web_media_stream_and_crypto_apis",
+        "rootCause": "Basic JSON tracing may be viable, but load-only evidence does not initialize or flush a trace and bundled media, attachment, stream, and hash paths reach Blob, FormData, ReadableStream, and crypto.subtle APIs.",
+        "remediation": "Run a credentialed plain-span smoke first, then add standards-faithful Web APIs only for paths proven reachable.",
+        "verificationNeeded": "Test plain spans separately from attachments, media, and streaming instrumentation.",
+        "evidence": [
+          "src/index.ts:1115-1575",
+          "src/client.ts:95-110",
+          "src/client.ts:270-279",
+          "braintrust/dist/edge-light.mjs:5863-5865"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1151.307,
+            "p90Ms": 1168.397,
+            "madMs": 12.626,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 2.121,
+            "p90Ms": 2.38,
+            "madMs": 0.017,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1066.524,
+            "p90Ms": 1120.62,
+            "madMs": 41.795,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 3.378,
+            "p90Ms": 18.907,
+            "madMs": 0.259,
+            "noisy": false
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.926,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 404.239,
+            "pigoMs": 778.113,
+            "ratio": 1.925,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": 1.593,
+            "quality": "ok"
+          }
+        }
+      }
+    },
+    {
+      "rank": 36,
+      "package": "pi-lean-ctx",
+      "version": "3.9.12",
+      "downloads": {
+        "monthly": 9815,
+        "weekly": 2717
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "mcp_streams_and_tool_definition_factories",
+        "rootCause": "Bundled MCP code requires node:stream, while core initialization eagerly calls missing bash, read, find, grep, and ls tool-definition factories.",
+        "remediation": "Implement faithful native-tool-definition factories and a real MCP stream transport; a stream stub only exposes the next failure.",
+        "verificationNeeded": "Load and execute ctx_shell, read, grep, and the MCP bridge.",
+        "evidence": [
+          "extensions/index.ts:8-19",
+          "extensions/index.ts:400-411",
+          "extensions/index.ts:488",
+          "extensions/index.ts:664-666"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1004.068,
+            "p90Ms": 1031.167,
+            "madMs": 8.38,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.433,
+            "p90Ms": 1.702,
+            "madMs": 0.011,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 37,
+      "package": "@narumitw/pi-lsp",
+      "version": "0.25.0",
+      "downloads": {
+        "monthly": 9750,
+        "weekly": 3754
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "main_feature_blocked",
+        "blockerCategory": "long_lived_bidirectional_child_stdio",
+        "rootCause": "Registration succeeds, but LSP requires a persistent child process with writable stdin and streamed stdout, while Pigo currently buffers output until exit and exposes no writable pipe.",
+        "remediation": "Implement real os/exec pipe streaming, lifecycle, cancellation, and shutdown semantics.",
+        "verificationNeeded": "Initialize a real language server, send requests, receive diagnostics, and shut it down cleanly.",
+        "evidence": [
+          "src/lsp-client.ts:78-85",
+          "src/lsp-client.ts:288-299"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [
+          "lsp-status"
+        ],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1044.736,
+            "p90Ms": 1070.773,
+            "madMs": 15.641,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.858,
+            "p90Ms": 6.819,
+            "madMs": 0.039,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 343.364,
+            "p90Ms": 369.932,
+            "madMs": 17.249,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 3.448,
+            "p90Ms": 5.801,
+            "madMs": 0.199,
+            "noisy": false
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.329,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 297.668,
+            "pigoMs": 54.953,
+            "ratio": 0.185,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": 1.856,
+            "quality": "ok"
+          }
+        }
+      }
+    },
+    {
+      "rank": 38,
+      "package": "pi-shazam",
+      "version": "0.30.0",
+      "downloads": {
+        "monthly": 9662,
+        "weekly": 502
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "native_tree_sitter_addons",
+        "rootCause": "The mandatory AST backend loads native tree-sitter and grammar addons; optional LSP code can degrade when vscode-jsonrpc is missing, but AST initialization cannot.",
+        "remediation": "Use an upstream-supported alternate parser backend or undertake native-addon support separately.",
+        "verificationNeeded": "Load the extension and generate a repository map and symbol graph.",
+        "evidence": [
+          "dist/core/treesitter.js:16-28",
+          "dist/lsp/client.js:13-23"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 867.366,
+            "p90Ms": 878.497,
+            "madMs": 7.274,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.446,
+            "p90Ms": 1.675,
+            "madMs": 0.065,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 39,
+      "package": "pi-cursor-sdk",
+      "version": "0.1.60",
+      "downloads": {
+        "monthly": 9575,
+        "weekly": 2239
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "bun_sqlite_and_sdk_packaging",
+        "rootCause": "The Cursor SDK build resolves bun:sqlite and references declaration maps and package JavaScript artifacts that Pigo's bundler cannot load; ignoring the map artifacts would still leave the mandatory Bun backend.",
+        "remediation": "Use an upstream Node-compatible Cursor SDK build and exports or create a dedicated integration; do not stub bun:sqlite.",
+        "verificationNeeded": "Load the extension and run a real Cursor SDK agent.",
+        "evidence": [
+          "src/cursor-sdk-runtime.ts:1-4",
+          "@cursor/sdk/dist/esm/914.js:1",
+          "@cursor/sdk/package.json:24-39"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 2308.047,
+            "p90Ms": 2357.846,
+            "madMs": 23.533,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.311,
+            "p90Ms": 1.499,
+            "madMs": 0.014,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 40,
+      "package": "pi-llama-cpp",
+      "version": "0.9.1",
+      "downloads": {
+        "monthly": 9549,
+        "weekly": 3437
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "private_settings_and_credential_sdk",
+        "rootCause": "Core configuration eagerly constructs SettingsManager and calls readStoredCredential, so model registration cannot initialize without faithful private settings and credential APIs.",
+        "remediation": "Implement SettingsManager and readStoredCredential against Pigo's existing stores.",
+        "verificationNeeded": "Load, resolve global and project settings, authenticate, and register and select a model.",
+        "evidence": [
+          "src/index.ts:17-20",
+          "src/resolver.ts:1-22",
+          "src/resolver.ts:108-113"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 978.194,
+            "p90Ms": 1001.823,
+            "madMs": 11.564,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.062,
+            "p90Ms": 1.125,
+            "madMs": 0.024,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 41,
+      "package": "pi-vault-mind",
+      "version": "0.16.25",
+      "downloads": {
+        "monthly": 9356,
+        "weekly": 1795
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "multiple_native_vector_ml_and_image_addons",
+        "rootCause": "The core memory pipeline depends on LanceDB .node bindings, onnxruntime-node binaries, and sharp native assets through @lancedb/lancedb and @xenova/transformers.",
+        "remediation": "Use extension-specific remote or Go backends, or undertake native runtime support as a separate design project.",
+        "verificationNeeded": "Load, embed, index, persist, and query a vault.",
+        "evidence": [
+          "package.json:75-79",
+          "@lancedb/lancedb/package.json:107-114",
+          "onnxruntime-node/package.json:9-16",
+          "sharp/package.json:176-188"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 994.469,
+            "p90Ms": 1011.246,
+            "madMs": 6.842,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 3.925,
+            "p90Ms": 4.529,
+            "madMs": 0.304,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 42,
+      "package": "gentle-engram",
+      "version": "0.1.10",
+      "downloads": {
+        "monthly": 8665,
+        "weekly": 1546
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "partial",
+        "blockerCategory": "detached_daemon_lifecycle",
+        "rootCause": "A configured healthy Engram service is statically viable with the fixed AbortSignal timeout path, but cold auto-start expects truly detached child semantics that Pigo's tracked buffered execution does not provide.",
+        "remediation": "Require a pre-running ENGRAM_URL for now, or implement faithful detached child lifecycle as a broader process change.",
+        "verificationNeeded": "Test an already-running daemon separately from cold auto-start and shutdown.",
+        "evidence": [
+          "index.ts:19-22",
+          "index.ts:251-258",
+          "index.ts:288-313",
+          "index.ts:764-768"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 3719.153,
+            "p90Ms": 3731.428,
+            "madMs": 10.285,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 3.056,
+            "p90Ms": 3.168,
+            "madMs": 0.096,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1648.893,
+            "p90Ms": 1661.866,
+            "madMs": 12.528,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 9.006,
+            "p90Ms": 10.28,
+            "madMs": 1.083,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.443,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 2972.085,
+            "pigoMs": 1360.482,
+            "ratio": 0.458,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    },
+    {
+      "rank": 43,
+      "package": "pi-hashline-edit-pro",
+      "version": "0.16.15",
+      "downloads": {
+        "monthly": 8541,
+        "weekly": 1145
+      },
+      "load": {
+        "status": "unsupported",
+        "reason": "pigo_load_failure",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "load_blocked",
+        "blockerCategory": "wasm_asset_urls_private_tool_factory_and_tui",
+        "rootCause": "Loading independently hits missing WebAssembly and incorrect bundled import.meta asset URLs, while deeper read and replace paths require createReadTool and Markdown.",
+        "remediation": "Provide a hash backend or WASM support, preserve per-module asset URLs during bundling, then implement the required tool factory and TUI surface.",
+        "verificationNeeded": "Load the extension, read anchors, replace content, and render results.",
+        "evidence": [
+          "index.ts:36",
+          "src/hashline/hash.ts:1-57",
+          "src/prompts.ts:1-14",
+          "src/read.ts:3",
+          "src/replace.ts:279-282"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 1087.935,
+            "p90Ms": 1095.533,
+            "madMs": 4.501,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.399,
+            "p90Ms": 1.568,
+            "madMs": 0.065,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "failed",
+          "startup": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          },
+          "observerCommandRPC": {
+            "n": 0,
+            "medianMs": null,
+            "p90Ms": null,
+            "madMs": null,
+            "noisy": null
+          }
+        },
+        "comparison": {
+          "available": false,
+          "reason": "requires stable successful probes in both runtimes"
+        }
+      }
+    },
+    {
+      "rank": 44,
+      "package": "cc-safety-net",
+      "version": "1.0.6",
+      "downloads": {
+        "monthly": 8379,
+        "weekly": 1941
+      },
+      "load": {
+        "status": "load_register_pass",
+        "reason": "load_register_pass",
+        "upstreamSupported": true,
+        "registrationDifference": null
+      },
+      "workflow": {
+        "tier": "likely_compatible",
+        "blockerCategory": "none",
+        "rootCause": "The inspected command and security hook paths use supported synchronous filesystem, path, crypto, and execFileSync APIs, with no native, socket, WASM, or private unresolved dependency.",
+        "remediation": "None statically.",
+        "verificationNeeded": "Behaviorally smoke allowed and blocked destructive commands plus redaction.",
+        "evidence": [
+          "dist/pi/index.js:305",
+          "dist/pi/index.js:6458-6486",
+          "dist/pi/index.js:6538"
+        ]
+      },
+      "smokeCoverage": {
+        "commandCases": [],
+        "workflowCases": []
+      },
+      "timings": {
+        "pi": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 755.693,
+            "p90Ms": 759.591,
+            "madMs": 3.374,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 1.15,
+            "p90Ms": 1.39,
+            "madMs": 0.046,
+            "noisy": false
+          }
+        },
+        "pigo": {
+          "state": "stable",
+          "startup": {
+            "n": 11,
+            "medianMs": 369.497,
+            "p90Ms": 380.02,
+            "madMs": 7.787,
+            "noisy": false
+          },
+          "observerCommandRPC": {
+            "n": 11,
+            "medianMs": 2.559,
+            "p90Ms": 3.427,
+            "madMs": 0.621,
+            "noisy": true
+          }
+        },
+        "comparison": {
+          "available": true,
+          "startup": {
+            "metric": "process_spawn_to_get_commands",
+            "ratio": 0.489,
+            "quality": "ok"
+          },
+          "baselineSubtractedLoad": {
+            "metric": "global_observer_baseline_subtracted_startup",
+            "piMs": 8.625,
+            "pigoMs": 81.086,
+            "ratio": 9.401,
+            "quality": "ok"
+          },
+          "observerRPC": {
+            "metric": "observer_command_rpc_round_trip_not_extension_work",
+            "ratio": null,
+            "quality": "noisy"
+          }
+        }
+      }
+    }
+  ],
+  "commandSmokes": [
+    {
+      "id": "piolium-help",
+      "rank": 1,
+      "package": "@vigolium/piolium",
+      "version": "0.0.13",
+      "command": "piolium-help",
+      "args": "",
+      "rationale": "Builds static help lines and opens a dismissible select dialog; the harness cancels it.",
+      "parity": true,
+      "runtimes": {
+        "pi": "command_handler_smoke_pass",
+        "pigo": "command_handler_smoke_pass"
+      },
+      "observableOutput": {
+        "stableWithinEachRuntime": true,
+        "equalAcrossRuntimes": true,
+        "piDistinctCount": 1,
+        "pigoDistinctCount": 1
+      },
+      "handlerLatency": {
+        "metric": "rpc_prompt_write_to_success_response_including_command_handler",
+        "pi": {
+          "n": 5,
+          "medianMs": 1.476,
+          "p90Ms": 14.519,
+          "madMs": 0.386,
+          "noisy": true
+        },
+        "pigo": {
+          "n": 5,
+          "medianMs": 1.321,
+          "p90Ms": 2.181,
+          "madMs": 0.072,
+          "noisy": false
+        },
+        "pigoVsPiRatio": null,
+        "ratioSuppressedBecause": "noisy_mad_over_10_percent"
+      }
+    },
+    {
+      "id": "piolium-status-empty",
+      "rank": 1,
+      "package": "@vigolium/piolium",
+      "version": "0.0.13",
+      "command": "piolium-status",
+      "args": "",
+      "rationale": "Reads the isolated empty project audit state and reports that no audit exists.",
+      "parity": true,
+      "runtimes": {
+        "pi": "command_handler_smoke_pass",
+        "pigo": "command_handler_smoke_pass"
+      },
+      "observableOutput": {
+        "stableWithinEachRuntime": true,
+        "equalAcrossRuntimes": true,
+        "piDistinctCount": 1,
+        "pigoDistinctCount": 1
+      },
+      "handlerLatency": {
+        "metric": "rpc_prompt_write_to_success_response_including_command_handler",
+        "pi": {
+          "n": 5,
+          "medianMs": 1.55,
+          "p90Ms": 1.719,
+          "madMs": 0.169,
+          "noisy": true
+        },
+        "pigo": {
+          "n": 5,
+          "medianMs": 0.597,
+          "p90Ms": 0.921,
+          "madMs": 0.122,
+          "noisy": true
+        },
+        "pigoVsPiRatio": null,
+        "ratioSuppressedBecause": "noisy_mad_over_10_percent"
+      }
+    },
+    {
+      "id": "subagents-doctor",
+      "rank": 4,
+      "package": "pi-subagents",
+      "version": "0.35.1",
+      "command": "subagents-doctor",
+      "args": "",
+      "rationale": "Builds a read-only local runtime, filesystem, discovery, budget, and intercom diagnostic.",
+      "parity": true,
+      "runtimes": {
+        "pi": "command_handler_smoke_pass",
+        "pigo": "command_handler_smoke_pass"
+      },
+      "observableOutput": {
+        "stableWithinEachRuntime": true,
+        "equalAcrossRuntimes": true,
+        "piDistinctCount": 1,
+        "pigoDistinctCount": 1
+      },
+      "handlerLatency": {
+        "metric": "rpc_prompt_write_to_success_response_including_command_handler",
+        "pi": {
+          "n": 5,
+          "medianMs": 10.706,
+          "p90Ms": 25.956,
+          "madMs": 0.486,
+          "noisy": false
+        },
+        "pigo": {
+          "n": 5,
+          "medianMs": 5.799,
+          "p90Ms": 5.943,
+          "madMs": 0.144,
+          "noisy": false
+        },
+        "pigoVsPiRatio": 0.542,
+        "ratioSuppressedBecause": null
+      }
+    },
+    {
+      "id": "fff-health",
+      "rank": 13,
+      "package": "@ff-labs/pi-fff",
+      "version": "0.10.1",
+      "command": "fff-health",
+      "args": "",
+      "rationale": "Reads the in-memory finder health initialized for the isolated empty project.",
+      "parity": false,
+      "runtimes": {
+        "pi": "command_handler_smoke_pass",
+        "pigo": "command_handler_smoke_pass"
+      },
+      "observableOutput": {
+        "stableWithinEachRuntime": true,
+        "equalAcrossRuntimes": false,
+        "piDistinctCount": 1,
+        "pigoDistinctCount": 1
+      },
+      "handlerLatency": {
+        "metric": "rpc_prompt_write_to_success_response_including_command_handler",
+        "pi": {
+          "n": 5,
+          "medianMs": 1.274,
+          "p90Ms": 1.347,
+          "madMs": 0.003,
+          "noisy": false
+        },
+        "pigo": {
+          "n": 5,
+          "medianMs": 0.493,
+          "p90Ms": 4.737,
+          "madMs": 0.066,
+          "noisy": true
+        },
+        "pigoVsPiRatio": null,
+        "ratioSuppressedBecause": "noisy_mad_over_10_percent"
+      },
+      "observableMismatch": {
+        "pi": {
+          "handler": [
+            {
+              "kind": "ui",
+              "message": "FFF v0.10.1\nMode: tools-and-ui\nGit: no\nPicker: 0 files\nFrecency: disabled\nQuery tracker: disabled\nScanning: no (0 files)",
+              "method": "notify",
+              "notifyType": "info"
+            }
+          ],
+          "startup": []
+        },
+        "pigo": {
+          "handler": [
+            {
+              "kind": "ui",
+              "message": "FFF not initialized",
+              "method": "notify",
+              "notifyType": "warning"
+            }
+          ],
+          "startup": [
+            {
+              "kind": "ui",
+              "message": "FFF init failed: dynamic modules not enabled in the host program",
+              "method": "notify",
+              "notifyType": "error"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hypa-diagnostics",
+      "rank": 19,
+      "package": "@hypabolic/pi-hypa",
+      "version": "0.1.11",
+      "command": "hypa",
+      "args": "",
+      "rationale": "Reports local extension configuration and binary resolution without invoking Hypa.",
+      "parity": true,
+      "runtimes": {
+        "pi": "command_handler_smoke_pass",
+        "pigo": "command_handler_smoke_pass"
+      },
+      "observableOutput": {
+        "stableWithinEachRuntime": true,
+        "equalAcrossRuntimes": true,
+        "piDistinctCount": 1,
+        "pigoDistinctCount": 1
+      },
+      "handlerLatency": {
+        "metric": "rpc_prompt_write_to_success_response_including_command_handler",
+        "pi": {
+          "n": 5,
+          "medianMs": 0.803,
+          "p90Ms": 0.948,
+          "madMs": 0.014,
+          "noisy": false
+        },
+        "pigo": {
+          "n": 5,
+          "medianMs": 1.357,
+          "p90Ms": 2.715,
+          "madMs": 0.584,
+          "noisy": true
+        },
+        "pigoVsPiRatio": null,
+        "ratioSuppressedBecause": "noisy_mad_over_10_percent"
+      }
+    },
+    {
+      "id": "goal-status-empty",
+      "rank": 20,
+      "package": "@narumitw/pi-goal",
+      "version": "0.24.0",
+      "command": "goal",
+      "args": "status",
+      "rationale": "Reads the empty isolated session goal state without creating or changing a goal.",
+      "parity": true,
+      "runtimes": {
+        "pi": "command_handler_smoke_pass",
+        "pigo": "command_handler_smoke_pass"
+      },
+      "observableOutput": {
+        "stableWithinEachRuntime": true,
+        "equalAcrossRuntimes": true,
+        "piDistinctCount": 1,
+        "pigoDistinctCount": 1
+      },
+      "handlerLatency": {
+        "metric": "rpc_prompt_write_to_success_response_including_command_handler",
+        "pi": {
+          "n": 5,
+          "medianMs": 0.79,
+          "p90Ms": 1.055,
+          "madMs": 0.016,
+          "noisy": false
+        },
+        "pigo": {
+          "n": 5,
+          "medianMs": 0.541,
+          "p90Ms": 0.6,
+          "madMs": 0.059,
+          "noisy": true
+        },
+        "pigoVsPiRatio": null,
+        "ratioSuppressedBecause": "noisy_mad_over_10_percent"
+      }
+    },
+    {
+      "id": "lsp-status",
+      "rank": 37,
+      "package": "@narumitw/pi-lsp",
+      "version": "0.25.0",
+      "command": "lsp",
+      "args": "",
+      "rationale": "Loads local LSP routing configuration and checks executable presence without starting a language server.",
+      "parity": true,
+      "runtimes": {
+        "pi": "command_handler_smoke_pass",
+        "pigo": "command_handler_smoke_pass"
+      },
+      "observableOutput": {
+        "stableWithinEachRuntime": true,
+        "equalAcrossRuntimes": true,
+        "piDistinctCount": 1,
+        "pigoDistinctCount": 1
+      },
+      "handlerLatency": {
+        "metric": "rpc_prompt_write_to_success_response_including_command_handler",
+        "pi": {
+          "n": 5,
+          "medianMs": 1.989,
+          "p90Ms": 2.014,
+          "madMs": 0.025,
+          "noisy": false
+        },
+        "pigo": {
+          "n": 5,
+          "medianMs": 6.088,
+          "p90Ms": 6.712,
+          "madMs": 0.624,
+          "noisy": true
+        },
+        "pigoVsPiRatio": null,
+        "ratioSuppressedBecause": "noisy_mad_over_10_percent"
+      }
+    }
+  ],
+  "workflowSmokes": [
+    {
+      "id": "piolium-knowledge-base-stage",
+      "rank": 1,
+      "package": "@vigolium/piolium",
+      "version": "0.0.13",
+      "command": "__piolium_kb_workflow_probe",
+      "args": "",
+      "rationale": "A disposable wrapper imports Piolium's real resolver, stager, and staged loader, then exercises directory readdir, bounded FileHandle reads, fatal TextDecoder decoding, hashing, atomic staging, and reload without starting an audit or model.",
+      "parity": true,
+      "runtimes": {
+        "pi": "workflow_smoke_pass",
+        "pigo": "workflow_smoke_pass"
+      },
+      "observableOutput": {
+        "stableWithinEachRuntime": true,
+        "equalAcrossRuntimes": true,
+        "piDistinctCount": 1,
+        "pigoDistinctCount": 1
+      },
+      "handlerLatency": {
+        "metric": "rpc_prompt_write_to_success_response_including_command_handler",
+        "pi": {
+          "n": 5,
+          "medianMs": 7.634,
+          "p90Ms": 16.649,
+          "madMs": 0.136,
+          "noisy": false
+        },
+        "pigo": {
+          "n": 5,
+          "medianMs": 5.26,
+          "p90Ms": 13.352,
+          "madMs": 1.101,
+          "noisy": true
+        },
+        "pigoVsPiRatio": null,
+        "ratioSuppressedBecause": "noisy_mad_over_10_percent"
+      },
+      "module": "/packages/node_modules/@vigolium/piolium/extensions/piolium/knowledge-base-input.ts",
+      "workflowPayload": {
+        "stableWithinEachRuntime": true,
+        "equalAcrossRuntimes": true,
+        "piDistinctPayloadCount": 1,
+        "pigoDistinctPayloadCount": 1
+      }
+    }
+  ],
+  "inspectedSmokeExclusions": [
+    {
+      "rank": 44,
+      "package": "cc-safety-net",
+      "command": "cc-safety-net",
+      "reason": "The handler calls pi.sendUserMessage with a generated workflow prompt, which intentionally starts a model turn and is outside this offline smoke surface."
+    }
+  ]
+}
