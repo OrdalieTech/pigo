@@ -138,7 +138,7 @@ func TestRealHostResolvesTypeScriptPackageImports(t *testing.T) {
 	writeFile(t, filepath.Join(transitiveDir, "package.json"), `{"name":"typed-transitive","type":"module","exports":"./index.js"}`, 0o600)
 	writeFile(t, filepath.Join(transitiveDir, "index.js"), `export const suffix = "transitive";`, 0o600)
 	writeFile(t, filepath.Join(commonJSDir, "package.json"), `{"name":"commonjs-dependency","main":"index.cjs","dependencies":{"commonjs-transitive":"1.0.0"}}`, 0o600)
-	writeFile(t, filepath.Join(commonJSDir, "index.cjs"), `module.exports = require("commonjs-transitive");`, 0o600)
+	writeFile(t, filepath.Join(commonJSDir, "index.cjs"), `const path = require("node:path"); module.exports = path.basename(path.dirname(require.resolve("commonjs-transitive/package.json", { paths: [__dirname] })));`, 0o600)
 	writeFile(t, filepath.Join(commonJSTransitiveDir, "package.json"), `{"name":"commonjs-transitive","main":"index.cjs"}`, 0o600)
 	writeFile(t, filepath.Join(commonJSTransitiveDir, "index.cjs"), `module.exports = "commonjs";`, 0o600)
 	writeFile(t, entry, `
@@ -160,10 +160,10 @@ export default function (pi: any) {
 	if len(result.Diagnostics) != 0 || len(result.Errors) != 0 {
 		t.Fatalf("load result = %#v", result)
 	}
-	if runner.ToolDefinition("typed_package_dependency-transitive_commonjs") == nil {
+	if runner.ToolDefinition("typed_package_dependency-transitive_commonjs-transitive") == nil {
 		t.Fatal("TypeScript package imports were not resolved")
 	}
-	if got := runner.ToolDefinition("typed_package_dependency-transitive_commonjs").Description; got != packageDir {
+	if got := runner.ToolDefinition("typed_package_dependency-transitive_commonjs-transitive").Description; got != packageDir {
 		t.Fatalf("tool source path = %q, want %q", got, packageDir)
 	}
 }

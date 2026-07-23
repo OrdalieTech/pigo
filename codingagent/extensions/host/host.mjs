@@ -25,7 +25,16 @@ Module._resolveFilename = function (request, parent, isMain, options) {
 			filename: source,
 			paths: Module._nodeModulePaths(dirname(source)),
 		});
-		return resolveFilename.call(this, request, sourceParent, isMain, options);
+		const sourceOptions = options?.paths
+			? { ...options, paths: options.paths.map((path) => {
+				try {
+					return realpathSync(path);
+				} catch {
+					return path;
+				}
+			}) }
+			: options;
+		return resolveFilename.call(this, request, sourceParent, isMain, sourceOptions);
 	}
 };
 
