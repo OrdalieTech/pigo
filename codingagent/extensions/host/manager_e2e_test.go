@@ -127,21 +127,28 @@ func TestRealHostResolvesTypeScriptPackageImports(t *testing.T) {
 	packageDir := filepath.Join(root, "node_modules", "typed-package")
 	dependencyDir := filepath.Join(root, "node_modules", "typed-dependency")
 	transitiveDir := filepath.Join(root, "node_modules", "typed-transitive")
+	commonJSDir := filepath.Join(root, "node_modules", "commonjs-dependency")
+	commonJSTransitiveDir := filepath.Join(root, "node_modules", "commonjs-transitive")
 	entry := filepath.Join(packageDir, "index.ts")
-	writeFile(t, filepath.Join(packageDir, "package.json"), `{"name":"typed-package","type":"module","dependencies":{"typed-dependency":"1.0.0"}}`, 0o600)
+	writeFile(t, filepath.Join(packageDir, "package.json"), `{"name":"typed-package","type":"module","dependencies":{"commonjs-dependency":"1.0.0","typed-dependency":"1.0.0"}}`, 0o600)
 	writeFile(t, filepath.Join(packageDir, "extensionless.ts"), `export const first: string = "typed";`, 0o600)
 	writeFile(t, filepath.Join(packageDir, "js-target.ts"), `export const second: string = "package";`, 0o600)
 	writeFile(t, filepath.Join(dependencyDir, "package.json"), `{"name":"typed-dependency","type":"module","exports":"./index.ts","dependencies":{"typed-transitive":"1.0.0"}}`, 0o600)
 	writeFile(t, filepath.Join(dependencyDir, "index.ts"), `import { suffix } from "typed-transitive"; export const dependency: string = "dependency-" + suffix;`, 0o600)
 	writeFile(t, filepath.Join(transitiveDir, "package.json"), `{"name":"typed-transitive","type":"module","exports":"./index.js"}`, 0o600)
 	writeFile(t, filepath.Join(transitiveDir, "index.js"), `export const suffix = "transitive";`, 0o600)
+	writeFile(t, filepath.Join(commonJSDir, "package.json"), `{"name":"commonjs-dependency","main":"index.cjs","dependencies":{"commonjs-transitive":"1.0.0"}}`, 0o600)
+	writeFile(t, filepath.Join(commonJSDir, "index.cjs"), `module.exports = require("commonjs-transitive");`, 0o600)
+	writeFile(t, filepath.Join(commonJSTransitiveDir, "package.json"), `{"name":"commonjs-transitive","main":"index.cjs"}`, 0o600)
+	writeFile(t, filepath.Join(commonJSTransitiveDir, "index.cjs"), `module.exports = "commonjs";`, 0o600)
 	writeFile(t, entry, `
 import { first } from "./extensionless";
 import { second } from "./js-target.js";
 import { dependency } from "typed-dependency";
+import commonjs from "commonjs-dependency";
 export default function (pi: any) {
   pi.registerTool({
-    name: first + "_" + second + "_" + dependency,
+    name: first + "_" + second + "_" + dependency + "_" + commonjs,
     label: "Typed package",
     description: import.meta.dirname,
     parameters: { type: "object", properties: {} },
@@ -153,10 +160,10 @@ export default function (pi: any) {
 	if len(result.Diagnostics) != 0 || len(result.Errors) != 0 {
 		t.Fatalf("load result = %#v", result)
 	}
-	if runner.ToolDefinition("typed_package_dependency-transitive") == nil {
+	if runner.ToolDefinition("typed_package_dependency-transitive_commonjs") == nil {
 		t.Fatal("TypeScript package imports were not resolved")
 	}
-	if got := runner.ToolDefinition("typed_package_dependency-transitive").Description; got != packageDir {
+	if got := runner.ToolDefinition("typed_package_dependency-transitive_commonjs").Description; got != packageDir {
 		t.Fatalf("tool source path = %q, want %q", got, packageDir)
 	}
 }
