@@ -126,12 +126,15 @@ func TestRealHostResolvesTypeScriptPackageImports(t *testing.T) {
 	root := t.TempDir()
 	packageDir := filepath.Join(root, "node_modules", "typed-package")
 	dependencyDir := filepath.Join(root, "node_modules", "typed-dependency")
+	transitiveDir := filepath.Join(root, "node_modules", "typed-transitive")
 	entry := filepath.Join(packageDir, "index.ts")
 	writeFile(t, filepath.Join(packageDir, "package.json"), `{"name":"typed-package","type":"module","dependencies":{"typed-dependency":"1.0.0"}}`, 0o600)
 	writeFile(t, filepath.Join(packageDir, "extensionless.ts"), `export const first: string = "typed";`, 0o600)
 	writeFile(t, filepath.Join(packageDir, "js-target.ts"), `export const second: string = "package";`, 0o600)
-	writeFile(t, filepath.Join(dependencyDir, "package.json"), `{"name":"typed-dependency","type":"module","exports":"./index.ts"}`, 0o600)
-	writeFile(t, filepath.Join(dependencyDir, "index.ts"), `export const dependency: string = "dependency";`, 0o600)
+	writeFile(t, filepath.Join(dependencyDir, "package.json"), `{"name":"typed-dependency","type":"module","exports":"./index.ts","dependencies":{"typed-transitive":"1.0.0"}}`, 0o600)
+	writeFile(t, filepath.Join(dependencyDir, "index.ts"), `import { suffix } from "typed-transitive"; export const dependency: string = "dependency-" + suffix;`, 0o600)
+	writeFile(t, filepath.Join(transitiveDir, "package.json"), `{"name":"typed-transitive","type":"module","exports":"./index.js"}`, 0o600)
+	writeFile(t, filepath.Join(transitiveDir, "index.js"), `export const suffix = "transitive";`, 0o600)
 	writeFile(t, entry, `
 import { first } from "./extensionless";
 import { second } from "./js-target.js";
@@ -150,10 +153,10 @@ export default function (pi: any) {
 	if len(result.Diagnostics) != 0 || len(result.Errors) != 0 {
 		t.Fatalf("load result = %#v", result)
 	}
-	if runner.ToolDefinition("typed_package_dependency") == nil {
+	if runner.ToolDefinition("typed_package_dependency-transitive") == nil {
 		t.Fatal("TypeScript package imports were not resolved")
 	}
-	if got := runner.ToolDefinition("typed_package_dependency").Description; got != packageDir {
+	if got := runner.ToolDefinition("typed_package_dependency-transitive").Description; got != packageDir {
 		t.Fatalf("tool source path = %q, want %q", got, packageDir)
 	}
 }

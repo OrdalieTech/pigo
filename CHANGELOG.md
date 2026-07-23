@@ -6,6 +6,10 @@ The embedded upstream changelog under `codingagent/modes/assets/` is a product a
 
 ## [Unreleased]
 
+### Fixed
+
+- Extensions retain access to hoisted transitive Node dependencies after staging.
+
 ## [0.4.2] - 2026-07-23
 
 ### Fixed
